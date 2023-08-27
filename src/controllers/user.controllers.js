@@ -33,6 +33,43 @@ export const postUser = async (req, res) => {
   }
 };
 
+export const putUser = async (req, res) => {
+  const { id } = req.params; 
+  const { name, date_birth, school } = req.body; 
+
+  try {
+  
+    const userUpdate = await UserModel.findByIdAndUpdate(
+      id,
+      {
+        name,
+        date_birth: new Date(date_birth),
+        school,
+      },
+      { new: true }
+    ); // { new: true } devuelve el usuario actualizado en lugar del antiguo
+
+    if (!userUpdate) {
+      return res.status(404).json({ message: "Usuario no encontrado" });
+    }
+
+    return res.status(200).json(userUpdate);
+  } catch (error) {
+    // Manejo de errores
+    return res.status(500).json({ error: "Error interno del servidor" });
+  }
+};
+
+
+export const deleteUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const userDelete = await userModel.findByIdAndDelete(id);
+    res.json(userDelete);
+  } catch (error) {
+    res.json(error);
+  }
+};
 
 /* 
 const actualizarProducto = async (req, res) => {

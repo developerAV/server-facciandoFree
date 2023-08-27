@@ -3,6 +3,7 @@ import cors from "cors";
 import { dbConnection } from "./database/index.js";
 
 import { routerUser } from "./routes/user.routes.js";
+import { routerEmployee } from "./routes/employee.routes.js";
 //demas 
 
 class Server {
@@ -13,6 +14,8 @@ class Server {
     this.port = process.env.PORT || 5000;
     this.paths = {
       user: "/user",
+      employee: "/employee",
+      // user: "/user/:id",
       //añadir los demas paths
 
     };
@@ -31,6 +34,8 @@ class Server {
   }
   routes() {
     this.app.use(this.paths.user, routerUser);
+    this.app.use(this.paths.employee, routerEmployee);
+    
     //añadir las demas rutas
   }
   listen() {
