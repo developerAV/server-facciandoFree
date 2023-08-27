@@ -13,6 +13,8 @@ class Server {
     this.port = process.env.PORT || 5000;
     this.paths = {
       user: "/user",
+      //añadir los demas paths
+
     };
     this.conectarDB();
     this.middlewares();
@@ -29,6 +31,7 @@ class Server {
   }
   routes() {
     this.app.use(this.paths.user, routerUser);
+    //añadir las demas rutas
   }
   listen() {
     this._express.listen(this.port);
