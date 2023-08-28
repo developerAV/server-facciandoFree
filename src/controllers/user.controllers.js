@@ -1,18 +1,27 @@
 import UserModel from "../models/user.models.js";
 
-/* const crearProductos = async (req, res) => {
+export const getAllUsers = async (req, res) => {
   try {
-    const body = req.body;
-    body.fecha = new Date();
-    body.idCategoria = mongo.ObjectId(body.idCategoria);
-    const producto = new Producto(body);
-    const productoNuevo = await producto.save();
-    return res.status(201).json(productoNuevo);
+    const users = await UserModel.find();
+    return res.status(200).json(users);
   } catch (error) {
-    return res.json(error);
+    return res.status(500).json({ error: "Error interno del servidor" });
   }
 };
- */
+
+export const getUser = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const user = await UserModel.findById(id);
+    if (!user) {
+      return res.status(404).json({ message: "Usuario no encontrado" });
+    }
+    return res.status(200).json(user);
+  } catch (error) {
+    return res.status(500).json({ error: "Error interno del servidor" });
+  }
+};
+
 export const postUser = async (req, res) => {
   let { idUserFirebase, name, date_birth, school } = req.body;
 
@@ -34,64 +43,36 @@ export const postUser = async (req, res) => {
 };
 
 export const putUser = async (req, res) => {
-  const { id } = req.params; 
-  const { name, date_birth, school } = req.body; 
-
+  const { id } = req.params;
+  const { name, school, levelCompleted, actualLevel, actualMission } = req.body;
   try {
-  
     const userUpdate = await UserModel.findByIdAndUpdate(
       id,
       {
         name,
-        date_birth: new Date(date_birth),
         school,
+        levelCompleted,
+        actualLevel,
+        actualMission,
       },
       { new: true }
-    ); // { new: true } devuelve el usuario actualizado en lugar del antiguo
+    );
 
     if (!userUpdate) {
       return res.status(404).json({ message: "Usuario no encontrado" });
     }
-
     return res.status(200).json(userUpdate);
   } catch (error) {
-    // Manejo de errores
     return res.status(500).json({ error: "Error interno del servidor" });
   }
 };
 
-
 export const deleteUser = async (req, res) => {
+  const { id } = req.params;
   try {
-    const { id } = req.params;
-    const userDelete = await userModel.findByIdAndDelete(id);
+    const userDelete = await UserModel.findByIdAndDelete(id);
     res.json(userDelete);
   } catch (error) {
     res.json(error);
   }
 };
-
-/* 
-const actualizarProducto = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { ...body } = req.body;
-
-    const productoModificado = await Producto.findByIdAndUpdate(id, body);
-
-    res.json(productoModificado);
-  } catch (error) {
-    res.json(error);
-  }
-  
-  
-  const borrarProducto = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const productoEliminado = await Producto.findByIdAndDelete(id);
-    res.json(productoEliminado);
-  } catch (error) {
-    res.json(error);
-  }
-};
-*/
