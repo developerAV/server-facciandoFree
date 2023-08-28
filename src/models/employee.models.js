@@ -7,6 +7,10 @@ const employeeSchema = new Schema({
     es: { type: String, required: true },
     en: { type: String, required: true },
   },
+  ocupation: {
+    es: { type: String, required: true },
+    en: { type: String, required: true },
+  },
   description: {
     es: { type: String, required: true },
     en: { type: String, required: true },
