@@ -23,17 +23,12 @@ export const getUser = async (req, res) => {
 };
 
 export const postUser = async (req, res) => {
-  let { idUserFirebase, name, date_birth, school } = req.body;
+  let body = req.body;
 
-  date_birth = new Date(date_birth);
+  const date_birth = new Date(body.date_birth);
 
   try {
-    const user = new UserModel({
-      idUserFirebase,
-      name,
-      date_birth,
-      school,
-    });
+    const user = new UserModel({ ...body, date_birth });
     const newUser = await user.save();
 
     return res.status(201).json(newUser);
@@ -63,7 +58,7 @@ export const putUser = async (req, res) => {
     }
     return res.status(200).json(userUpdate);
   } catch (error) {
-    return res.status(500).json({ error: error.message});
+    return res.status(500).json({ error: error.message });
   }
 };
 
