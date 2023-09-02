@@ -63,7 +63,7 @@ export const putUser = async (req, res) => {
     }
     return res.status(200).json(userUpdate);
   } catch (error) {
-    return res.status(500).json({ error: "Error interno del servidor" });
+    return res.status(500).json({ error: error.message});
   }
 };
 
