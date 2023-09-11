@@ -4,7 +4,10 @@ import { dbConnection } from "./database/index.js";
 
 import { routerUser } from "./routes/user.routes.js";
 import { routerEmployee } from "./routes/employee.routes.js";
-//demas 
+import { routerLevel } from "./routes/level.routes.js";
+import { routerMission } from "./routes/mission.routes.js";
+
+//demas
 
 class Server {
   constructor() {
@@ -15,9 +18,11 @@ class Server {
     this.paths = {
       user: "/user",
       employee: "/employee",
+      level: "/level",
+      mission: "/mission",
+
       // user: "/user/:id",
       //añadir los demas paths
-
     };
     this.conectarDB();
     this.middlewares();
@@ -35,7 +40,9 @@ class Server {
   routes() {
     this.app.use(this.paths.user, routerUser);
     this.app.use(this.paths.employee, routerEmployee);
-    
+    this.app.use(this.paths.level, routerLevel);
+    this.app.use(this.paths.mission, routerMission);
+
     //añadir las demas rutas
   }
   listen() {
