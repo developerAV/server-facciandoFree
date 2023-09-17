@@ -8,6 +8,14 @@ export const getAllUsers = async (req, res) => {
     return res.status(500).json({ error: "Error interno del servidor" });
   }
 };
+export const getFirst10UsersByScore = async (req, res) => {
+  try {
+    const users = await UserModel.find().sort({ score: -1 }).limit(10);
+    return res.status(200).json(users);
+  } catch (error) {
+    return res.status(500).json({ error: "Error interno del servidor" });
+  }
+};
 
 export const getUser = async (req, res) => {
   const { id } = req.params;
