@@ -2,13 +2,13 @@ import { Schema, model } from "mongoose";
 
 const enEs = {
   type: String,
-  required: true,
+  required: false,
 };
 
 const missionSchema = new Schema({
   order: {
     type: Number,
-    required: true,
+    required: false,
   },
   name: {
     en: enEs,
@@ -29,6 +29,10 @@ const missionSchema = new Schema({
   time: {
     type: Number,
     default: 0,
+  },
+  completed: {
+    type: Boolean,
+    default: false,
   },
 });
 

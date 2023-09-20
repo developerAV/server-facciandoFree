@@ -1,5 +1,5 @@
 import UserModel from "../models/user.models.js";
-
+import { MISSIONS } from "../utils/constants.js";
 export const getAllUsers = async (req, res) => {
   try {
     const users = await UserModel.find();
@@ -44,7 +44,7 @@ export const getUserByIdFirebase = async (req, res) => {
 
 export const postUser = async (req, res) => {
   let body = req.body;
-
+  body.missions = MISSIONS;
   const date_birth = new Date(body.date_birth);
 
   try {
@@ -53,25 +53,20 @@ export const postUser = async (req, res) => {
 
     return res.status(201).json(newUser);
   } catch (error) {
-    return res.json(error);
+    return res.json(error.message);
   }
 };
 
 export const putUser = async (req, res) => {
   const { id } = req.params;
-  const { name, school, levelCompleted, actualLevel, actualMission } = req.body;
+  const body = req.body;
+  const { date_birth } = req.body;
+
+  if (date_birth) body.date_birth = new Date(date_birth);
   try {
-    const userUpdate = await UserModel.findByIdAndUpdate(
-      id,
-      {
-        name,
-        school,
-        levelCompleted,
-        actualLevel,
-        actualMission,
-      },
-      { new: true }
-    );
+    const userUpdate = await UserModel.findByIdAndUpdate(id, body, {
+      new: true,
+    });
 
     if (!userUpdate) {
       return res.status(404).json({ message: "Usuario no encontrado" });

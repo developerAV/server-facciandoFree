@@ -1,4 +1,5 @@
 import { Schema, model } from "mongoose";
+import Mission from "./mission.models.js";
 
 const userSchema = new Schema({
   idUserFirebase: {
@@ -33,6 +34,11 @@ const userSchema = new Schema({
   actualMission: {
     type: Number,
     default: 1,
+  },
+  missions: {
+    type: [Mission.schema],
+    default: [],
+    require: true,
   },
 });
 
