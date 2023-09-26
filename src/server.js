@@ -47,6 +47,7 @@ class Server {
   }
   listen() {
     this._express.listen(this.port);
+    console.log(`Server on port ${this.port}`);
   }
 }
 
