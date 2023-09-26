@@ -17,6 +17,7 @@ const userSchema = new Schema({
   },
   school: {
     type: String,
+    default: "",
     require: true,
   },
   score: {
