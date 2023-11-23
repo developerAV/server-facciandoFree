@@ -41,6 +41,18 @@ const userSchema = new Schema({
     default: [],
     require: true,
   },
+  step: {
+    type: Number,
+    default: 1,
+  },
+  scene: {
+    type: String,
+    default: "Outside",
+  },
+  position: {
+    type: { x: Number, y: Number },
+    default: { x: 0, y: 0 },
+  },
 });
 
 export default model("User", userSchema);
