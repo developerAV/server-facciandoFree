@@ -47,7 +47,7 @@ const userSchema = new Schema({
   },
   scene: {
     type: String,
-    default: "Outside",
+    default: "outside",
   },
   position: {
     type: { x: Number, y: Number },
