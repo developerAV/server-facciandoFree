@@ -53,6 +53,10 @@ const userSchema = new Schema({
     type: { x: Number, y: Number },
     default: { x: 0, y: 0 },
   },
+  sprite: {
+    type: String,
+    default: "spriteGirl",
+  },
 });
 
 export default model("User", userSchema);
