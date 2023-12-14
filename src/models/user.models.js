@@ -51,7 +51,7 @@ const userSchema = new Schema({
   },
   position: {
     type: { x: Number, y: Number },
-    default: { x: 0, y: 0 },
+    default: { x: 800, y: 600 },
   },
   sprite: {
     type: String,
